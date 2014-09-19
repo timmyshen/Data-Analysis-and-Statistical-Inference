@@ -1,0 +1,16 @@
+General Social Survey (GSS):
+A sociological survey used to collect data on demographic characteristics and attitudes of residents of the United States. The codebook below lists all variables, the values they take, and the survey questions associated with them. There are a total of 57,061 cases and 114 variables in this dataset. Note that this is a cumulative data file for surveys conducted between 1972 - 2012 and that not all respondents answered all questions in all years.
+Codebook: Review the codebook to view a list of all variables, the values they take, and the original survey questions associated with the variables.
+
+Use the following code to load the GSS dataset into R:
+
+load(url("http://bit.ly/dasi_gss_data"))
+
+For access from China try using the following URL in the code above: 
+http://d396qusza40orc.cloudfront.net/statistics/project/gss.Rdata 
+
+The name of the dataset that you load is gss. For example, you can see a list of the variable names using the following command:
+
+names(gss)
+
+Note that this dataset includes data from many years. In your analysis it might make sense to first subset the data for a particular year (or years) and analyze only data pertaining to those years. This might be especially useful if you're using a variable from a survey question that was only asked in certain years.

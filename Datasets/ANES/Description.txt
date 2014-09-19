@@ -1,0 +1,13 @@
+American National Elections Study (ANES):
+A survey of voters in the United States, conducted before and after every presidential election. The codebook below lists all variables, the values they take, and the survey questions associated with them.There are a total of 5,914 cases and 205 variables in this dataset. Note that not all respondents answered all questions.
+Codebook: Review the codebook to view a list of all variables, the values they take, and the original survey questions associated with the variables.
+
+Use the following code to load the ANES dataset into R:
+
+load(url("http://bit.ly/dasi_anes_data"))
+
+For access from China try using the following URL in the code above: 
+http://d396qusza40orc.cloudfront.net/statistics/project/anes.RData 
+
+The name of the dataset that you load is anes. For example, you can see a list of the variable names using the following command:
+names(anes)
