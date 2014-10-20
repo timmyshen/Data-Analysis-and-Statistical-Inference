@@ -1,6 +1,6 @@
 ---
-title: "project title"
-date: "date"
+title: "The relationship between the respondents' subjective class identification and their attitude towards space exploration program"
+date: "2014/10/18"
 output:
   html_document:
     theme: cerulean
@@ -10,27 +10,103 @@ output:
 
 <!-- Enter the code required to load your data in the space below. The data will be loaded but the line of code won't show up in your write up (echo=FALSE) in order to save space-->
 ```{r echo=FALSE}
-
+load(url("http://bit.ly/dasi_gss_data"))
 ```
 
 <!-- In the remainder of the document, add R code chunks as needed -->
 
 ### Introduction:
 
-Insert introduction here...
+General Social Survey (GSS) is a sociological survey used to collect data on demographic characteristics and attitudes of residents of the United States. By studying the survey, one could learn some interesting insights of American society. 
+
+This research focuses on a very specific question related to the survey: Is there any relationship between the respondents' subjective class identification and their attitude towards space exploration program?
+
+I personally find this interesting because I am very interested in space programs and think there need to be more of them. So I want to find out what class of people tend to support space programs. Are the rich more supportive or the poor? Is there a significant difference? This question may also be valuable to politicians and policy makers. As they run a campaign or roll out a national policy, they may talk differently to the target audience should there're different attitudes toward space programs.
 
 ### Data:
 
-Insert data section here...
+The survey is conducted face-to-face with an in-person interview by the National Opinion Research Center at the University of Chicago, of adults (18+) in randomly selected households. The survey was conducted every year from 1972 to 1994 (except in 1979, 1981, and 1992). Since 1994, it has been conducted every other year. The survey takes about 90 minutes to administer.
+
+The cases in the data rest represent respondents, each with numbers of survey questions of variables. This data set contains 57061 cases. The two variables I am going to study are 'class' and 'natspac', representing subjective class identification and space exploration program respectively. They are both categorical variables.
+
+It is an observational study. I am going to study the relationship by sampling from the population and derive my conclusion from observing and analyzing the samples.
+
+Assuming the samples are independent, random sampling can be generalized to the population. The bias might be introduced because some people who are more interested in space program voluntarily responds.
+
+Since this is an observational study, no causal relationship should be established.
+
 
 ### Exploratory data analysis:
 
-Insert exploratory data analysis here...
+```{r echo=FALSE}
+summary(gss$natspac)
+
+summary(gss$class)
+```
+
+The counts of each categorical variable are provided above. The first thing I noticed was there were bunch of NA's. That will be excluded from the study. But we should bear in mind that the fact that many respondents of NA's might suggest some response bias. So generalizing any conclusion should be careful.
+
+```{r echo=FALSE}
+table(gss$natspac, gss$class)
+```
+
+From the table we can get a rough idea that middle and upper class tend to be more supportive to the space programs.
+
+```{r echo=FALSE}
+mosaicplot( class ~ natspac, data = gss )
+```
+
+A visualization helps illustrating the finding more clear. But the question is, is the difference statistically significant? In other words, is there real difference between lower class and middle upper class, or is it just by chance?
+
 
 ### Inference:
 
-Insert inference section here...
+In order to do a statistical inference, we'd focus on two variables, namely the proportion of people thinking space program is too much among lower class and the proportion of those in middle class.
+
+We denote those two variables as $p_l$ and $p_m$
+
+Our null hypothesis states as:
+$H_0 : p_l = p_m$
+
+From the data sample we calculate that
+$\hat{p}_l = 0.625156$, and $\hat{p}_m = 0.406384$
+
+Now we check if the conditions for the sampling distribution to be normal are met.
+First of all, each proportion separately follows a normal model since we randomly sample and this is a large enough sample.
+Secondly the two samples are independent of each other. This can be reasonably true because of the sampling method.
+
+In a hypothesis testing, we calculate pooled estimate of the sample proportion, and we use it to compute the standard error.
+$\hat{p} = 0.4296237$
+
+The standard error is
+$SE_{\hat{p}_l - \hat{p}_m} = 0.01309721$
+
+$\hat{p}_l - \hat{p}_m = 0.218772$
+
+$Z = \frac{0.218772}{0.01309721} = 16.70371$
+
+P-value is almost equal to zero.
+
+So we reject the null hypothesis and conclude that there's a difference between the proportion of people thinking space program is too much among lower class and the proportion of those in middle class, with a significance level of 5%.
+
+Note that in this situation, only hypothesis test is applicable to the problem.
 
 ### Conclusion:
 
-Insert conclusion here...
+Practically and statistically, the lower class and middle class have a different view towards national space program. Our analysis above tried to convince readers of the point. This should not be that shocking to us. The analysis uses what was taught in the course to derive the result by a rigorous statistical way. That brings more scientific insight into the question. The future research question related could be that investigating the causation of the variables. Since our study was purely observational and only association can be built, I'm interested to see if class is the cause (or one of the factors) of the attitude of national space program.
+
+
+###Data Citation
+
+Smith, Tom W., Michael Hout, and Peter V. Marsden. General Social Survey, 1972-2012 [Cumulative File]. ICPSR34802-v1. Storrs, CT: Roper Center for Public Opinion Research, University of Connecticut /Ann Arbor, MI: Inter-university Consortium for Political and Social Research [distributors], 2013-09-11. doi:10.3886/ICPSR34802.v1
+
+Persistent URL: http://doi.org/10.3886/ICPSR34802.v1
+
+
+###Appendix
+A sample of the data set used in the research.
+```{r echo=FALSE}
+
+tail(gss[,c('class', 'natspac')], n = 50)
+```
+
